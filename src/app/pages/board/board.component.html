@@ -1,0 +1,49 @@
+<div style="height: 100lvh; position: relative; overflow: hidden">
+  <div class="board-container" style="padding-top: 32px">
+    <div class="board">
+      <div class="western-map">
+        @for(mapElements of westearnMap; track mapElements){
+        <div
+          class="map-elements"
+          [ngStyle]="getMapItemStyle(mapElements)"
+        ></div>
+        } @for(target of targets; track target){
+        <div
+          class="target"
+          [ngStyle]="getMapItemStyle(target)"
+          (click)="useOnTarget(target)"
+        ></div>
+        } @for(player of players;track player){
+        <div class="player" [ngStyle]="getPlayerStyle(player)"></div>
+        }
+      </div>
+      <div class="space-map">
+        @for(mapElements of spaceMap; track mapElements){
+        <div
+          class="map-elements"
+          [ngStyle]="getMapItemStyle(mapElements)"
+        ></div>
+        } @for(target of targets; track target){
+        <div
+          class="target"
+          [ngStyle]="getMapItemStyle(target)"
+          (click)="useOnTarget(target)"
+        ></div>
+        } @for(player of players;track player){
+        <div class="player" [ngStyle]="getPlayerStyle(player)"></div>
+        }`
+      </div>
+    </div>
+  </div>
+  @for(card of cards; track card; let i = $index){
+  <div
+    class="card"
+    [ngStyle]="getCardStyle(i, card)"
+    (click)="setSelectedCard(card)"
+  >
+    <div style="position: relative">
+      <div class="inspect" (click)="inspectCard(card)"></div>
+    </div>
+  </div>
+  }
+</div>

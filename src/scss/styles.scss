@@ -1,0 +1,60 @@
+@import "./reset.scss";
+
+// Import Font
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&display=swap");
+
+// Import Icons
+@import url("https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css");
+
+* {
+  user-select: none;
+  font-family: Bright;
+}
+
+.page-container {
+  min-height: 100vh;
+}
+
+.title-floating {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 25;
+
+  img {
+    animation: floating 3.5s ease-in-out infinite;
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(2vh);
+  }
+
+  50% {
+    transform: translateY(-2vh);
+  }
+
+  100% {
+    transform: translateY(2vh);
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+
+.mat-mdc-snack-bar-container {
+  &.custon-snackbar {
+    --mdc-snackbar-container-color: #faa629;
+    --mat-mdc-snack-bar-button-color: #000000;
+    --mdc-snackbar-supporting-text-color: #000000;
+    --mat-snack-bar-button-color: #6d4202;
+  }
+}
