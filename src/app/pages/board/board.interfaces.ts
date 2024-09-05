@@ -31,7 +31,7 @@ export interface IPlayer {
   col: number;
   row: number;
   visible?: boolean;
-  color: string;
+  color?: string;
   img?: string;
 }
 

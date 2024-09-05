@@ -10,6 +10,7 @@ import {
   ITarget,
   IMapElement,
 } from './board.interfaces';
+import { CardService } from '../../services/card.service';
 
 @Component({
   selector: 'app-board',
@@ -19,103 +20,35 @@ import {
   styleUrl: './board.component.scss',
 })
 export class BoardComponent implements OnInit {
-  players: IPlayer[] = [
+  constructor(private cardService: CardService) {}
+
+  playersWestern: IPlayer[] = [
     { col: 3, row: 3, color: '#ffffff00', img: 'players/chicken/pintinho.png' },
     { col: 0, row: 5, color: '#6d0071' },
     { col: 5, row: 0, color: '#6d0071' },
-    { col: 5, row: 5, color: '#ffff00' },
+    { col: 5, row: 5, color: '#ffffff00', img: 'players/chicken/pintinho.png' },
+  ];
+
+  playersSpace: IPlayer[] = [
+    { col: 0, row: 0, color: '#6d0071' },
+    { col: 0, row: 5, color: '#ffffff00', img: 'players/chicken/pintinho.png' },
+    { col: 5, row: 0, color: '#ffffff00', img: 'players/chicken/pintinho.png' },
+    { col: 5, row: 5, color: '#6d0071' },
   ];
 
   cards: IBoardCard[] = [];
 
-  MOCK_CARDS: IMoveCard[] = [
-    {
-      id: 2,
-      color: '#5564dd',
-      type: 'move',
-      availableCords: [
-        { col: 2, row: 0 },
-        { col: 0, row: 2 },
-      ],
-      img: 'moveCards/move-card-2.png',
-    },
-    {
-      id: 3,
-      color: '#ff0055',
-      type: 'move',
-      availableCords: [
-        { col: -1, row: 0 },
-        { col: 0, row: -1 },
-      ],
-      img: 'moveCards/move-card-3.png',
-    },
-    {
-      id: 4,
-      color: '#00ff88',
-      type: 'move',
-      availableCords: [
-        { col: 1, row: 0 },
-        { col: 0, row: 1 },
-      ],
-      img: 'moveCards/move-card-1.png',
-    },
-    {
-      id: 5,
-      color: '#5564dd',
-      type: 'move',
-      availableCords: [
-        { col: 2, row: 0 },
-        { col: 0, row: 2 },
-      ],
-      img: 'moveCards/move-card-2.png',
-    },
-    {
-      id: 6,
-      color: '#ff0055',
-      type: 'move',
-      availableCords: [
-        { col: -1, row: 0 },
-        { col: 0, row: -1 },
-      ],
-      img: 'moveCards/move-card-3.png',
-    },
-  ];
-
-  MOCK_GROUND_CARDS: IGroundCard[] = [
-    {
-      type: 'ground',
-      affectArea: [
-        { col: 1, row: 1 },
-        { col: 1, row: -1 },
-        { col: -1, row: 1 },
-        { col: -1, row: -1 },
-      ],
-      id: 18,
-      color: '#ff8143',
-    },
-  ];
-
-  westearnMap: any[] = [];
+  westernMap: any[] = [];
   spaceMap: any[] = [];
 
   selectedCard: IBoardCard | null;
   count: number = 0;
   targets: ITarget[] = [];
 
-  selfPlayer: IPlayer = this.players[0];
+  selfPlayer: IPlayer = this.playersWestern[0];
 
   ngOnInit(): void {
-    this.cards = this.MOCK_GROUND_CARDS;
-    this.callCard();
-  }
-
-  callCard() {
-    if (this.cards.length === this.MOCK_CARDS.length) return;
-    setTimeout(() => {
-      this.cards.push(this.MOCK_CARDS[this.count]);
-      this.count++;
-      this.callCard();
-    }, 2000);
+    this.cards = this.cardService.startedCards();
   }
 
   movePlayer(player: { col: number; row: number }, col: number, row: number) {
@@ -130,7 +63,7 @@ export class BoardComponent implements OnInit {
       case IBoardCardType.MOVE:
         this.movePlayer(this.selfPlayer, target.col, target.row);
 
-        let findMapElement = this.westearnMap.find((elem) => {
+        let findMapElement = this.westernMap.find((elem) => {
           console.log(
             elem,
             target,
@@ -149,7 +82,7 @@ export class BoardComponent implements OnInit {
         break;
       case IBoardCardType.GROUND:
         let mapElement = { col: target.col, row: target.row };
-        this.westearnMap.push(mapElement);
+        this.westernMap.push(mapElement);
     }
 
     let index = this.cards.findIndex(
