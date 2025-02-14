@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+::-webkit-scrollbar {
+  width: 8px; /* Largura da barra */
+  background-color: transparent; /* Fundo transparente */
+}
+
+/* Estilo do thumb (parte que você arrasta) */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3); /* Leve transparência */
+  border-radius: 4px; /* Cantos arredondados */
+}
+
+/* Estilo do track (área atrás do thumb) */
+::-webkit-scrollbar-track {
+  background-color: transparent; /* Fundo transparente */
+}

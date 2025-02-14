@@ -1,0 +1,44 @@
+<div class="lobby__container">
+  @if(!hasNickname){
+  <div class="character__choose__container">
+    <app-character-selector></app-character-selector>
+    <div class="character__choose__content">
+      <input type="text" placeholder="Escolha seu nickname" />
+      <button (click)="setNickname()">Entrar na sala</button>
+    </div>
+    <app-character-selector></app-character-selector>
+  </div>
+  }
+  <p class="title">Escolha seu time</p>
+  <div class="user__container">
+    <div class="user__content">
+      @for (user of connectedUsers; track $index) {
+      <div class="user__painel">
+        <p>{{ user.nickname }}</p>
+      </div>
+      }
+    </div>
+  </div>
+  <div class="team__container">
+    @for (team of teams; track $index) {
+    <div
+      class="team__content"
+      [ngStyle]="{
+        background: team.secondaryColor,
+        'border-color': team.primaryColor
+      }"
+    >
+      <div class="team__content__frame"></div>
+      <div class="team__content__nickname">
+        <p>NOME DO JOGADOR</p>
+        <p>&</p>
+        <p>OUTRO JOGADOR</p>
+      </div>
+      <div class="team__content__frame"></div>
+    </div>
+    }
+  </div>
+  <div class="btn-actions">
+    <button>Iniciar Jogo</button>
+  </div>
+</div>

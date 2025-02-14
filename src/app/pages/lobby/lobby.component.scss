@@ -1,0 +1,144 @@
+.lobby__container {
+  width: 100vw;
+  height: 100lvh;
+  background-color: #202a47;
+  padding: 32px 24px 0 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  color: white;
+
+  .title {
+    font-size: 36px;
+    text-align: center;
+  }
+
+  .character__choose {
+    &__container {
+      width: 100vw;
+      height: 100vh;
+
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: #202a47;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    &__content {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+
+      input {
+        border: 2px solid #021242;
+        height: 40px;
+        width: 75%;
+        border-radius: 8px;
+
+        text-align: center;
+
+        background-color: #4b5f9a;
+        color: #fff;
+
+        &::placeholder {
+          color: #ffffff80;
+        }
+      }
+
+      button {
+        background-color: rgb(35, 50, 189);
+        padding: 8px 12px;
+        border-radius: 8px;
+      }
+    }
+  }
+
+  .user {
+    &__container {
+      min-width: 100%;
+    }
+    &__content {
+      margin: 24px 0;
+      gap: 24px;
+
+      max-width: 100%;
+      width: 90vw;
+      overflow: auto;
+
+      display: flex;
+
+      scrollbar-width: 0px;
+      scrollbar-color: #00000000;
+    }
+
+    &__painel {
+      border: 1px solid #000;
+      min-width: 65px;
+      height: 65px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .team {
+    &__container {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+
+      gap: 16px;
+    }
+
+    &__content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      width: 100%;
+      border-style: solid;
+      border-width: 3px;
+      border-radius: 12px;
+
+      height: 100px;
+      padding: 0 8px;
+
+      &__nickname {
+        text-align: center;
+        font-size: 0.75rem;
+      }
+
+      &__frame {
+        width: 85px;
+        height: 85px;
+        border: 2px dashed #ffffff50;
+
+        background-color: #00000080;
+        border-radius: 16px;
+      }
+    }
+  }
+
+  .btn-actions {
+    margin-top: auto;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+
+    button {
+      background-color: chocolate;
+      padding: 16px 24px;
+      border-radius: 12px;
+    }
+  }
+}
