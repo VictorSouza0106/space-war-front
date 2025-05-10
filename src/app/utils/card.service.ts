@@ -6,7 +6,7 @@ import { ALL_GROUND_CARDS } from '../../utils/ground-cards';
 @Injectable({
   providedIn: 'root',
 })
-export class CardService {
+export class CardManager {
   private MAX_CARD_ON_HANDS = 6;
 
   constructor() {}

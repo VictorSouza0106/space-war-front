@@ -1,7 +1,39 @@
+:host {
+  position: relative;
+}
+
 .character__selector {
   height: 175px;
   aspect-ratio: 1 / 1;
 
   border-radius: 50%;
   background-color: violet;
+
+  overflow: hidden;
+
+  .player__imgs {
+    display: flex;
+
+    img {
+      height: 170px;
+    }
+  }
+}
+
+.selector {
+  position: absolute;
+  top: 50%;
+  font-size: 3em;
+  font-weight: bold;
+  transform: translateY(-50%);
+
+  --spacing: -25%;
+
+  &__right {
+    right: var(--spacing);
+  }
+
+  &__left {
+    left: var(--spacing);
+  }
 }

@@ -4,7 +4,7 @@ import { io, Socket } from 'socket.io-client';
 @Injectable({
   providedIn: 'root',
 })
-export class SocketService {
+export class SocketIOService {
   constructor() {
     this.socket = io('http://localhost:3000');
   }
@@ -15,7 +15,7 @@ export class SocketService {
     this.socket.emit(eventName, data);
   }
 
-  on(eventName: string, callback: () => {}) {
+  on(eventName: string, callback: any) {
     this.socket.on(eventName, callback);
   }
 }

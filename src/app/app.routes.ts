@@ -8,6 +8,10 @@ export const routes: Routes = [
     component: LobbyComponent,
   },
   {
+    path: 'lobby/:roomCode',
+    component: LobbyComponent,
+  },
+  {
     component: BoardComponent,
     path: '**',
     pathMatch: 'prefix',

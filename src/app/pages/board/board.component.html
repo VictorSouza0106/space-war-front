@@ -1,75 +1,57 @@
+<div class="board-container" style="padding-top: 32px">
+  <div class="board">
+    <!-- Westean MAP -->
+    <div class="western-map">
+      @for(mapElements of westernMap; track mapElements){
+      <div class="map-elements" [ngStyle]="getMapItemStyle(mapElements)"></div>
+      } @for(target of targets; track target){
+      <div
+        class="target"
+        [ngStyle]="getMapItemStyle(target)"
+        (click)="useOnTarget(target)"
+      ></div>
+      } @for(player of playersWestern;track player){
+      <div class="player" [ngStyle]="getPlayerStyle(player)"></div>
+      }
+    </div>
+    <!-- SPACE MAP -->
+    <div class="space-map">
+      @for(mapElements of spaceMap; track mapElements){
+      <div class="map-elements" [ngStyle]="getMapItemStyle(mapElements)"></div>
+      } @for(target of targets; track target){
+      <div
+        class="target"
+        [ngStyle]="getMapItemStyle(target)"
+        (click)="useOnTarget(target)"
+      ></div>
+      } @for(player of playersSpace;track player){
+      <div class="player" [ngStyle]="getPlayerStyle(player)"></div>
+      }`
+    </div>
+  </div>
+</div>
 <div
   style="
-    height: 100lvh;
-    position: relative;
-    overflow: hidden;
+    width: 350px;
+    height: 75px;
+    background-color: burlywood;
+    border-radius: 12px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 16px;
+    justify-content: center;
+    font-weight: bold;
   "
 >
-  <div class="board-container" style="padding-top: 32px">
-    <div class="board">
-      <!-- Westean MAP -->
-      <div class="western-map">
-        @for(mapElements of westernMap; track mapElements){
-        <div
-          class="map-elements"
-          [ngStyle]="getMapItemStyle(mapElements)"
-        ></div>
-        } @for(target of targets; track target){
-        <div
-          class="target"
-          [ngStyle]="getMapItemStyle(target)"
-          (click)="useOnTarget(target)"
-        ></div>
-        } @for(player of playersWestern;track player){
-        <div class="player" [ngStyle]="getPlayerStyle(player)"></div>
-        }
-      </div>
-      <!-- SPACE MAP -->
-      <div class="space-map">
-        @for(mapElements of spaceMap; track mapElements){
-        <div
-          class="map-elements"
-          [ngStyle]="getMapItemStyle(mapElements)"
-        ></div>
-        } @for(target of targets; track target){
-        <div
-          class="target"
-          [ngStyle]="getMapItemStyle(target)"
-          (click)="useOnTarget(target)"
-        ></div>
-        } @for(player of playersSpace;track player){
-        <div class="player" [ngStyle]="getPlayerStyle(player)"></div>
-        }`
-      </div>
-    </div>
-  </div>
-  <div
-    style="
-      width: 350px;
-      height: 75px;
-      background-color: burlywood;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    "
-  >
-    NEXT TURN
-  </div>
-  @for(card of cards; track card; let i = $index){
-  <div
-    class="card"
-    [ngStyle]="getCardStyle(i, card)"
-    (click)="setSelectedCard(card)"
-  >
-    <div style="position: relative">
-      <div class="inspect" (click)="inspectCard(card)"></div>
-    </div>
-  </div>
-  }
+  NEXT TURN
 </div>
+@for(card of cards; track card; let i = $index){
+<div
+  class="card"
+  [ngStyle]="getCardStyle(i, card)"
+  (click)="setSelectedCard(card)"
+>
+  <div style="position: relative">
+    <div class="inspect" (click)="inspectCard(card)"></div>
+  </div>
+</div>
+}

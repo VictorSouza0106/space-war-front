@@ -1,1 +1,9 @@
-<div class="character__selector"></div>
+<div class="character__selector">
+  <div class="player__imgs" [ngClass]="playerType()">
+    @for(playerImg of playersImgs; track playersImgs){
+    <img [src]="'../../../assets/players/' + playerImg" alt="" />
+    }
+  </div>
+</div>
+<div class="selector selector__left" (click)="slideCharacter(false)"><</div>
+<div class="selector selector__right" (click)="slideCharacter(true)">></div>

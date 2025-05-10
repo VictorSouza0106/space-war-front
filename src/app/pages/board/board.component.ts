@@ -10,7 +10,7 @@ import {
   ITarget,
   IMapElement,
 } from './board.interfaces';
-import { CardService } from '../../services/card.service';
+import { CardManager } from '../../utils/card.service';
 
 @Component({
   selector: 'app-board',
@@ -20,7 +20,7 @@ import { CardService } from '../../services/card.service';
   styleUrl: './board.component.scss',
 })
 export class BoardComponent implements OnInit {
-  constructor(private cardService: CardService) {}
+  constructor(private cardManager: CardManager) {}
 
   playersWestern: IPlayer[] = [
     { col: 3, row: 3, color: '#ffffff00', img: 'players/chicken/pintinho.png' },
@@ -48,7 +48,7 @@ export class BoardComponent implements OnInit {
   selfPlayer: IPlayer = this.playersWestern[0];
 
   ngOnInit(): void {
-    this.cards = this.cardService.startedCards();
+    this.cards = this.cardManager.startedCards();
   }
 
   movePlayer(player: { col: number; row: number }, col: number, row: number) {
