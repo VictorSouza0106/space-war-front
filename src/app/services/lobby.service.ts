@@ -22,7 +22,7 @@ export class LobbyService extends BaseService {
 
   public async getLobby(roomCode: string) {
     this.http
-      .get(`${this.LOBBY_BASE_REF}${roomCode}`)
+      .get(`${this.LOBBY_BASE_REF}${roomCode}`, { withCredentials: true })
       .pipe(first())
       .subscribe((res) => {
         this.lobby = res as ILobby;
@@ -32,16 +32,20 @@ export class LobbyService extends BaseService {
   }
 
   public async createLobby(user: IUser) {
-    this.http.post(`${this.LOBBY_BASE_REF}`, user).subscribe((res) => {
-      this.lobby = res as ILobby;
-      this.$lobbySubject.next(res as ILobby);
-      this.lobbyMessageListener();
-    });
+    this.http
+      .post(`${this.LOBBY_BASE_REF}`, user, { withCredentials: true })
+      .subscribe((res) => {
+        this.lobby = res as ILobby;
+        this.$lobbySubject.next(res as ILobby);
+        this.lobbyMessageListener();
+      });
   }
 
   public addUserToLobby(user: IUser) {
     this.http
-      .put(`${this.LOBBY_BASE_REF}addUser/${this.lobby.roomCode}`, user)
+      .put(`${this.LOBBY_BASE_REF}addUser/${this.lobby.roomCode}`, user, {
+        withCredentials: true,
+      })
       .subscribe((res) => {
         this.$lobbySubject.next(res as ILobby);
       });
@@ -49,7 +53,11 @@ export class LobbyService extends BaseService {
 
   public reconnectUserOnLobby(user: IUser) {
     this.http
-      .put(`${this.LOBBY_BASE_REF}/reconnectUser/${this.lobby.roomCode}`, user)
+      .put(
+        `${this.LOBBY_BASE_REF}/reconnectUser/${this.lobby.roomCode}`,
+        user,
+        { withCredentials: true }
+      )
       .subscribe((res) => {
         this.$lobbySubject.next(res as ILobby);
       });
