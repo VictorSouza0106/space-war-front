@@ -22,6 +22,7 @@ export class BaseService {
       'Content-Type': 'application/json',
       Accept: 'application/json',
       'Access-Control-Allow-Credentials': 'true',
+      'Referrer-Policy': 'no-referrer',
     });
   }
 
