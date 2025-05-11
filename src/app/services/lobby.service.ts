@@ -22,7 +22,7 @@ export class LobbyService extends BaseService {
 
   public async getLobby(roomCode: string) {
     this.http
-      .get(`${this.LOBBY_BASE_REF}${roomCode}`, { withCredentials: true })
+      .get(`${this.LOBBY_BASE_REF}${roomCode}`, this.getRequestOptions())
       .pipe(first())
       .subscribe((res) => {
         this.lobby = res as ILobby;
@@ -33,7 +33,7 @@ export class LobbyService extends BaseService {
 
   public async createLobby(user: IUser) {
     this.http
-      .post(`${this.LOBBY_BASE_REF}`, user, { withCredentials: true })
+      .post(`${this.LOBBY_BASE_REF}`, user, this.getRequestOptions())
       .subscribe((res) => {
         this.lobby = res as ILobby;
         this.$lobbySubject.next(res as ILobby);
@@ -56,7 +56,7 @@ export class LobbyService extends BaseService {
       .put(
         `${this.LOBBY_BASE_REF}/reconnectUser/${this.lobby.roomCode}`,
         user,
-        { withCredentials: true }
+        this.getRequestOptions()
       )
       .subscribe((res) => {
         this.$lobbySubject.next(res as ILobby);
