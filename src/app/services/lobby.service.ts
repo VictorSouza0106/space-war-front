@@ -4,6 +4,7 @@ import { BaseService } from './base.service';
 import { first, Subject } from 'rxjs';
 import { SocketIOService } from './socket.service';
 import { ILobby, ISocketMessage, IUser } from '../pages/interfaces';
+import { ITeam } from '../pages/lobby/lobby.component';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,7 @@ export class LobbyService extends BaseService {
       .subscribe((res) => {
         this.lobby = res as ILobby;
         this.$lobbySubject.next(this.lobby);
-        this.lobbyMessageListener(this.lobby.roomCode);
+        this.lobbyMessageListener();
       });
   }
 
@@ -34,7 +35,7 @@ export class LobbyService extends BaseService {
     this.http.post(`${this.LOBBY_BASE_REF}`, user).subscribe((res) => {
       this.lobby = res as ILobby;
       this.$lobbySubject.next(res as ILobby);
-      this.lobbyMessageListener(this.lobby.roomCode);
+      this.lobbyMessageListener();
     });
   }
 
@@ -54,18 +55,21 @@ export class LobbyService extends BaseService {
       });
   }
 
-  private lobbyMessageListener(roomCode: string) {
-    this.socket.on(roomCode, (socketMessage: ISocketMessage<ILobby>) => {
-      switch (socketMessage.type) {
-        case 'lobbyUser':
-          this.lobby.users = socketMessage.data.users;
-          this.$lobbySubject.next(this.lobby);
-          break;
+  public emitLobbyMessage(teams: ITeam[]) {
+    this.lobby.gameTeams = teams;
 
-        default:
-          break;
-      }
-      this.$lobbySocketSubject.next(socketMessage);
+    let message: ISocketMessage<ILobby> = {
+      roomCode: this.lobby.roomCode,
+      data: this.lobby,
+    };
+
+    this.socket.emit('client_message', message);
+  }
+
+  private lobbyMessageListener() {
+    this.socket.on('updateLobby', (lobby: ILobby) => {
+      this.lobby = lobby;
+      this.$lobbySubject.next(this.lobby);
     });
   }
 }

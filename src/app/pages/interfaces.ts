@@ -1,7 +1,11 @@
+import { ITeam } from './lobby/lobby.component';
+
 export interface ILobby {
   roomCode: string;
   users: IUser[];
   gameStatus: 'lobby' | 'game' | 'ended';
+  gameConfigs: any;
+  gameTeams: ITeam[];
 }
 
 export interface IUser {
@@ -10,6 +14,6 @@ export interface IUser {
   isMaster?: boolean;
 }
 export interface ISocketMessage<T> {
-  type: string;
+  roomCode: string;
   data: T;
 }

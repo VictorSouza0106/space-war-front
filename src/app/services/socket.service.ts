@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SocketIOService {
+export class SocketIOService extends BaseService {
   constructor() {
-    this.socket = io('http://localhost:3000');
+    super();
+    this.socket = io(this.BASE_REF);
   }
 
   private socket: Socket;

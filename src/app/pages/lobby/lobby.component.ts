@@ -18,55 +18,21 @@ import { UserService } from '../../services/user.service';
 export class LobbyComponent implements OnInit, OnDestroy {
   hasUsername: boolean = false;
   user: IUser | null;
-
   username: string;
+
+  selectedTeam: ITeam;
 
   roomCode: string | null;
 
-  lobbySubscription: Subscription;
+  lobbySocketSubscription: Subscription;
 
-  get lobby() {
+  get lobby(): ILobby {
     return this.lobbyService.lobby;
   }
 
-  teams: any[] = [
-    {
-      primaryColor: '#A95CDB',
-      secondaryColor: '#A95CDB80',
-      teamName: 'purple',
-      players: {
-        chicken: 'CHIC',
-        cat: 'CAT',
-      },
-    },
-    {
-      primaryColor: '#5665DB',
-      secondaryColor: '#5665DB80',
-      teamName: 'blue',
-      players: {
-        chicken: '',
-        cat: '',
-      },
-    },
-    {
-      primaryColor: '#4BDB94',
-      secondaryColor: '#4BDB9480',
-      teamName: 'green',
-      players: {
-        chicken: '',
-        cat: '',
-      },
-    },
-    {
-      primaryColor: '#DB944B',
-      secondaryColor: '#DB944B80',
-      teamName: 'orange',
-      players: {
-        chicken: '',
-        cat: '',
-      },
-    },
-  ];
+  get teams(): ITeam[] {
+    return this.lobbyService.lobby?.gameTeams;
+  }
 
   constructor(
     private lobbyService: LobbyService,
@@ -81,16 +47,14 @@ export class LobbyComponent implements OnInit, OnDestroy {
 
     if (this.roomCode) this.lobbyService.getLobby(this.roomCode);
 
-    this.lobbySubscription = this.lobbyService.$lobbySubject
-      .pipe(first())
-      .subscribe((lobby) => {
-        if (!this.roomCode) this.setRoomCodeQueryParams();
-        this.connectPlayer();
-      });
+    this.lobbyService.$lobbySubject.pipe(first()).subscribe((lobby) => {
+      if (!this.roomCode) this.setRoomCodeQueryParams();
+      this.connectPlayer();
+    });
   }
 
   ngOnDestroy(): void {
-    this.lobbySubscription.unsubscribe();
+    this.lobbySocketSubscription.unsubscribe();
   }
 
   setUser() {
@@ -104,12 +68,26 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   chooseTeam(animalType: 'chicken' | 'cat', team: ITeam): void {
-    team.players[animalType] = this.user?.username as string;
+    if (team.players.cat || team.players.chicken) return;
+
+    if (this.selectedTeam) {
+      let selectedTeam = this.teams.find(
+        (arrTeam) => this.selectedTeam.teamName === arrTeam.teamName
+      ) as ITeam;
+      selectedTeam.players = { cat: null, chicken: null };
+    }
+
+    team.players.cat = this.user?.username as string;
+    team.players.chicken = this.user?.username as string;
+    this.selectedTeam = team;
+
+    this.lobbyService.emitLobbyMessage(this.teams);
   }
 
   createLobby() {
     this.lobbyService.createLobby({ username: this.username });
     this.hasUsername = true;
+    this.setUser();
   }
 
   private setRoomCodeQueryParams() {
@@ -138,7 +116,7 @@ export interface ITeam {
   secondaryColor: string;
   teamName: string;
   players: {
-    chicken: string;
-    cat: string;
+    chicken: string | null;
+    cat: string | null;
   };
 }

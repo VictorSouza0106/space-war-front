@@ -7,7 +7,8 @@ import { inject, Injectable } from '@angular/core';
 export class BaseService {
   protected http = inject(HttpClient);
 
-  protected BASE_REF = 'http://localhost:3000';
+  // public BASE_REF = 'http://localhost:3000';
+  public BASE_REF = 'https://tabulabs-344fkcab8f850.herokuapp.com';
 
   constructor() {}
 }
