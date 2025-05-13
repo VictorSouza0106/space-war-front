@@ -12,7 +12,7 @@ export class BaseService {
 
   getRequestOptions() {
     return {
-      withCredentials: true,
+      withCredentials: false,
       headers: this.getRequestHeaders(),
     };
   }
