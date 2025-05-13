@@ -23,6 +23,7 @@ export class BaseService {
       Accept: 'application/json',
       'Access-Control-Allow-Credentials': 'true',
       'Referrer-Policy': 'no-referrer',
+      'Access-Control-Allow-Origin': this.BASE_REF,
     });
   }
 
