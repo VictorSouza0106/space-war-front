@@ -12,7 +12,7 @@ export class BaseService {
 
   getRequestOptions() {
     return {
-      withCredentials: false,
+      withCredentials: true,
       headers: this.getRequestHeaders(),
     };
   }
@@ -21,8 +21,6 @@ export class BaseService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      'Referrer-Policy': 'no-referrer',
-      'Access-Control-Allow-Origin': '*',
     });
   }
 
