@@ -21,9 +21,8 @@ export class BaseService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      'Access-Control-Allow-Credentials': 'true',
       'Referrer-Policy': 'no-referrer',
-      'Access-Control-Allow-Origin': this.BASE_REF,
+      'Access-Control-Allow-Origin': '*',
     });
   }
 
