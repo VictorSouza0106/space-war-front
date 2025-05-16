@@ -10,6 +10,8 @@ export interface ILobby {
 
 export interface IUser {
   username: string;
+  chickenImg?: string;
+  catImg?: string;
   connected?: boolean;
   isMaster?: boolean;
 }

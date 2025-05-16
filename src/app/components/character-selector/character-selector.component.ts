@@ -28,6 +28,11 @@ export class CharacterSelectorComponent {
     return this._selectedCharacterIndex;
   }
 
+  get selectedCharacter() {
+    console.log(PLAYERS_TYPES_IMGS[this.playerType()]);
+    return PLAYERS_TYPES_IMGS[this.playerType()][this.selectedCharacterIndex];
+  }
+
   set selectedCharacterIndex(value: number) {
     this._selectedCharacterIndex = value;
     if (value < 0) this._selectedCharacterIndex = 0;
@@ -40,7 +45,7 @@ export class CharacterSelectorComponent {
     else this.selectedCharacterIndex--;
 
     console.log(this.selectedCharacterIndex);
-    gsap.to('.' + this.playerType(), { x: -175 * this.selectedCharacterIndex });
+    gsap.to('.' + this.playerType(), { x: -155 * this.selectedCharacterIndex });
   }
 }
 
@@ -48,10 +53,10 @@ type PlayersType = 'chicken' | 'cats';
 
 const PLAYERS_TYPES_IMGS = {
   chicken: [
-    'chicken/pintinho.png',
-    'chicken/pintinho.png',
-    'chicken/pintinho.png',
-    'chicken/pintinho.png',
+    'chicken/pintinho_1.png',
+    'chicken/pintinho_2.png',
+    'chicken/pintinho_1.png',
+    'chicken/pintinho_2.png',
   ],
   cats: [
     'cats/gatinho.png',

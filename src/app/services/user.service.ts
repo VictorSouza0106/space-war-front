@@ -15,10 +15,10 @@ export class UserService {
 
   set loggedUser(loggedUser: IUser) {
     this._loggedUser = loggedUser;
-    window.localStorage.setItem('LU', JSON.stringify(loggedUser));
+    // window.localStorage.setItem('LU', JSON.stringify(loggedUser));
   }
 
   getCachedUser() {
-    this._loggedUser = JSON.parse(window.localStorage.getItem('LU') as string);
+    // this._loggedUser = JSON.parse(window.localStorage.getItem('LU') as string);
   }
 }

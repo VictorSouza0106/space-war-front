@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ILobby, IUser } from '../interfaces';
 import { CharacterSelectorComponent } from '../../components/character-selector/character-selector.component';
 import { LobbyService } from '../../services/lobby.service';
@@ -16,6 +16,9 @@ import { UserService } from '../../services/user.service';
   styleUrl: './lobby.component.scss',
 })
 export class LobbyComponent implements OnInit, OnDestroy {
+  @ViewChild('chickenSelector') chickenSelector: CharacterSelectorComponent;
+  @ViewChild('catSelector') catSelector: CharacterSelectorComponent;
+
   hasUsername: boolean = false;
   user: IUser | null;
   username: string;
@@ -58,9 +61,14 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   setUser() {
+    console.log(this.chickenSelector);
     let guestUser: IUser = {
       username: this.username,
+      chickenImg: this.chickenSelector.selectedCharacter,
+      catImg: 'cats/gatinho.png',
     };
+
+    console.log(guestUser);
 
     this.user = guestUser;
     this.lobbyService.addUserToLobby(guestUser);
@@ -77,8 +85,15 @@ export class LobbyComponent implements OnInit, OnDestroy {
       selectedTeam.players = { cat: null, chicken: null };
     }
 
-    team.players.cat = this.user?.username as string;
-    team.players.chicken = this.user?.username as string;
+    team.players.cat = {
+      username: this.user?.username as string,
+      img: this.user?.catImg as string,
+    };
+
+    team.players.chicken = {
+      username: this.user?.username as string,
+      img: this.user?.chickenImg as string,
+    };
     this.selectedTeam = team;
 
     this.lobbyService.emitLobbyMessage(this.teams);
@@ -116,7 +131,13 @@ export interface ITeam {
   secondaryColor: string;
   teamName: string;
   players: {
-    chicken: string | null;
-    cat: string | null;
+    chicken: {
+      username: string;
+      img: string;
+    } | null;
+    cat: {
+      username: string;
+      img: string;
+    } | null;
   };
 }

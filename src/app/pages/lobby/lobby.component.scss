@@ -1,6 +1,8 @@
 :host {
+  background-image: url(../../../assets/bg-space.png);
+  background-position: center center;
   width: 100vw;
-  height: 100lvh;
+  height: 100dvh;
   background-color: #202a47;
   padding: 32px 24px 0 24px;
 
@@ -10,14 +12,17 @@
   color: white;
 
   .title {
-    font-size: 36px;
+    font-size: 0.8rem;
     text-align: center;
   }
 
   .character__choose {
     &__container {
+      background-image: url(../../../assets/bg-space.png);
+      background-size: cover;
+      background-position: 5% 0;
       width: 100vw;
-      height: 100vh;
+      height: 100dvh;
 
       position: absolute;
       left: 0;
@@ -81,13 +86,18 @@
     }
 
     &__painel {
-      border: 1px solid #000;
-      min-width: 65px;
-      height: 65px;
-
       display: flex;
       justify-content: center;
       align-items: center;
+
+      border-radius: 8px;
+
+      font-size: 0.9rem;
+      font-weight: bold;
+      // TODO: ADICIONAR VARIAVEL DE COR
+      background-color: #021242;
+
+      padding: 8px;
     }
   }
 
@@ -110,8 +120,7 @@
       border-width: 3px;
       border-radius: 12px;
 
-      height: 100px;
-      padding: 0 8px;
+      padding: 8px;
 
       &__nickname {
         text-align: center;
@@ -119,8 +128,8 @@
       }
 
       &__frame {
-        width: 85px;
-        height: 85px;
+        width: 70px;
+        height: 70px;
         border: 2px dashed #ffffff50;
 
         background-color: #00000080;

@@ -1,6 +1,9 @@
 @if(!user){
 <div class="character__choose__container">
-  <app-character-selector playerType="chicken"></app-character-selector>
+  <app-character-selector
+    #chickenSelector
+    playerType="chicken"
+  ></app-character-selector>
   <div class="character__choose__content">
     <input
       type="text"
@@ -12,10 +15,13 @@
       <button *ngIf="!lobby" (click)="createLobby()">Criar Sala</button>
     </div>
   </div>
-  <app-character-selector playerType="cats"></app-character-selector>
+  <app-character-selector
+    #catSelector
+    playerType="cats"
+  ></app-character-selector>
 </div>
 }
-<p class="title">Escolha seu time</p>
+<p class="title">Lobby</p>
 <div class="user__container">
   <div class="user__content">
     @for (user of lobby?.users; track $index) {
@@ -35,11 +41,27 @@
       'border-color': team.primaryColor
     }"
   >
-    <div class="team__content__frame"></div>
-    <div class="team__content__nickname">
-      <p>{{ team.players.chicken ?? "Escolha um Time" }}</p>
+    <div class="team__content__frame">
+      <img
+        [src]="
+          team.players.chicken?.img
+            ? '../../../assets/players/' + team.players.chicken?.img
+            : ''
+        "
+      />
     </div>
-    <div class="team__content__frame" (click)="chooseTeam('cat', team)"></div>
+    <div class="team__content__nickname">
+      <p>{{ team.players.chicken?.username ?? "Escolha um Time" }}</p>
+    </div>
+    <div class="team__content__frame">
+      <img
+        [src]="
+          team.players.cat?.img
+            ? '../../../assets/players/' + team.players.cat?.img
+            : ''
+        "
+      />
+    </div>
   </div>
   }
 </div>
