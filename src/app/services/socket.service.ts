@@ -8,7 +8,10 @@ import { BaseService } from './base.service';
 export class SocketIOService extends BaseService {
   constructor() {
     super();
-    this.socket = io(this.BASE_REF);
+    this.socket = io(this.BASE_REF, {
+      transports: ['websocket'],
+      withCredentials: true,
+    });
   }
 
   private socket: Socket;
